@@ -12,54 +12,30 @@ import h5py
 
 Plot=False
 pull_samples=False
-def loadAipyData(time):
-    HERAlist = glob('./zen.*.*.yy.HH.uvOCR')
-    HERAdata = []
-    times = []
-    for l in ['11_121']: #,'10_31','31_105','10_105','9_31','9_105','10_31']:
-        data = []
-        for k in HERAlist:
-            uvHERA = a.miriad.UV(k)
-            a.scripting.uv_selector(uvHERA, l, 'xx')
-            for p,d,f in uvHERA.all(raw=True):
-                data.append(d)
-                times.append(uvHERA['lst'])
-        if l == '11_121':
-            HERAdata = [data]
-        else:
-            HERAdata.append(data)
-    print n.shape(HERAdata)
-    HERAdata = n.array(HERAdata)
-    times = n.array(times)
-    return HERAdata,times
 
-def loadH5():
-    f = h5py.File('/Users/josh/Desktop/Organize/UPennML/ml_rfi/RealVisRFI_v3.h5')
+def loadH5(file_locs):
+    f = h5py.File(file_locs)
     return f['data'][:],np.logical_not(f['flag'])
 
-def loadPYUVdata():
-    files = np.array(glob('./zen.*.uvSLIM'))
+def loadPYUVdata(file_locs,suffix):
+    files = np.array(glob(file_locs+'*'+suffix))
     info = {}
     ct = 0
-    rnd_3 = np.random.randint(len(files),size=5)
-    file_cut = files[rnd_3]
-    # grab 10 files at random
-#    f_rnd = np.random.randint(0,len(files),size=6)
-    for f in file_cut:#f_rnd]:
+    rnd_ = np.random.randint(len(files),size=5)
+    file_cut = files[rnd_]
+    for f in file_cut:
         print(f)
-        #info[f] = {'antpairs' : {}}
         uv = pyuvdata.UVData()
         uv.read_miriad(f,run_check_acceptability=False,run_check=False,check_extra=False)
         antpairs = uv.get_antpairs()
         for i in range(3):
-        #    print(ct)
             rnd = np.random.randint(len(antpairs))
             ap1,ap2 = antpairs[rnd]
             pos1 = uv.antenna_positions[uv.antenna_numbers==ap1]
             pos2 = uv.antenna_positions[uv.antenna_numbers==ap2]
             bl_len = np.round(np.sqrt(np.sum((pos1-pos2)**2)),2)
             info[f+'_{0}'.format(ct)] = '{0}_blen_{1}'.format(ct,bl_len)#str(ct)+'_blen_'+str() #['antpairs'][ct] = antpairs[rnd] #antpairs[rnd] : ct}
-            if f == file_cut[0] and i == 0:#f_rnd[0]]:# and i == 0:
+            if f == file_cut[0] and i == 0:
                 HERAdata = [uv.get_data(antpairs[rnd]).squeeze()]
             else:
                 HERAdata.append(uv.get_data(antpairs[rnd]).squeeze())
