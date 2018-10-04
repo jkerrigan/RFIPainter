@@ -257,9 +257,9 @@ class Painter:
             self.x1 = event.xdata
             self.y1 = event.ydata
             if self.y0 >= self.y1 and self.x0 >= self.x1:
-                self.curr_mask[int(self.y1-1):int(self.y0),int(self.x1-1):int(self.x0)] = 0
+                self.curr_mask[int(self.y1):int(self.y0+1),int(self.x1):int(self.x0+1)] = 0
             elif self.y0 >= self.y1 and self.x1 >= self.x0:
-                self.curr_mask[int(self.y1-1):int(self.y0),int(self.x0):int(self.x1+1)] = 0
+                self.curr_mask[int(self.y1):int(self.y0+1),int(self.x0):int(self.x1+1)] = 0
             elif self.x0 >= self.x1 and self.y1 >= self.y0:
                 self.curr_mask[int(self.y0):int(self.y1+1),int(self.x0):int(self.x1+1)] = 0
             else:
