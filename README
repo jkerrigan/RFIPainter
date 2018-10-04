@@ -1,0 +1,14 @@
+RFI Painter allows you to import miriad or hdf5 files containing waterfall visibilities to flag RFI or genenerally any bad data.
+This interactive flagger displays three canvasses: Log Amplitude, Phase, and the Resulting Delay Spectrum
+                                                                                                  
+
+Important keys to note are:                                                                                                               
+                                                                                                                                          
+Left Click: place an RFI flag                                                                                                             
+Left Click + Hold and Drag: place a rectanglar grouping of RFI flags                                                                      
+Right Click: undo the most recently placed set of flags                                                                                   
+p: do not include waterfall into output dataset                                                                                           
+right arrow: go to next waterfall                                                                                                         
+q: quit out of the canvasses, do this when you've reached the end of your dataset                                                         
+   and all of the waterfalls that were 'right arrowed' will be saved                                                                      
+o: enter zoom mode   
