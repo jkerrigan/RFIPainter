@@ -1,6 +1,10 @@
 RFI Painter allows you to import miriad or hdf5 files containing waterfall visibilities to flag RFI or 
 genenerally any bad data. This interactive flagger displays three canvasses: Log Amplitude, Phase, and the Resulting Delay Spectrum
-                                                                                                  
+
+Output Format is currently only an hdf5 file with the structure of:
+data array - (# waterfalls, times, freqs)
+flag array - (# waterfalls, times, freqs)
+info string - Should contain information for each waterfall such as obs filename, baseline length, index in data array
 
 Important key shortcuts to note are:                                                                                                               
                                                                                                                                           
