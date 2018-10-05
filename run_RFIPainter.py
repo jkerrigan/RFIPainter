@@ -31,7 +31,7 @@ pull_samples=False
 #file_locs = '/Users/josh/Desktop/Organize/UPennML/ml_rfi/RealVisRFI_v3.h5'
 file_locs = '/Users/josh/Desktop/RFIMLDiverseDataset/'
 suffix = 'uvSLIM'
-output_name = 'RawRealVis_v1.h5
+output_name = 'RawRealVis_v1.h5'
 
 plt.ion()
 
