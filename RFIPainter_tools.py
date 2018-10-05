@@ -22,27 +22,41 @@ def loadPYUVdata(file_locs,suffix):
     info = {}
     ct = 0
     rnd_ = np.random.randint(len(files),size=5)
-    file_cut = files[rnd_]
+    file_cut = files#[rnd_]
     for f in file_cut:
         print(f)
         uv = pyuvdata.UVData()
         uv.read_miriad(f,run_check_acceptability=False,run_check=False,check_extra=False)
         antpairs = uv.get_antpairs()
-        for i in range(3):
+        flag_npz_name = '.'.join(f.split('.')[:5])+'.uvOCR.flags.applied.npz'
+        try:
+            flag_npz = np.load(flag_npz_name)
+        except:
+            print('npz flag file -{}- not found'.format(flag_npz_name))
+        for i in range(50):
             rnd = np.random.randint(len(antpairs))
             ap1,ap2 = antpairs[rnd]
+            bsl = uv.antnums_to_baseline(ap1,ap2)
+            try:
+                HERAlabels_ = np.logical_not(flag_npz['flag_array'][bsl == flag_npz['baseline_array']])
+            except:
+                pass
             pos1 = uv.antenna_positions[uv.antenna_numbers==ap1]
             pos2 = uv.antenna_positions[uv.antenna_numbers==ap2]
             bl_len = np.round(np.sqrt(np.sum((pos1-pos2)**2)),2)
             info[f+'_{0}'.format(ct)] = '{0}_blen_{1}'.format(ct,bl_len)#str(ct)+'_blen_'+str() #['antpairs'][ct] = antpairs[rnd] #antpairs[rnd] : ct}
             if f == file_cut[0] and i == 0:
                 HERAdata = [uv.get_data(antpairs[rnd]).squeeze()]
+                HERAlabels = [HERAlabels_.squeeze()]
             else:
                 HERAdata.append(uv.get_data(antpairs[rnd]).squeeze())
+                HERAlabels.append(HERAlabels_.squeeze())
             ct+=1
         del(uv)
     print('Dataset size: ',np.shape(HERAdata))
-    return HERAdata,info
+    if len(HERAlabels) == 0:
+        HERAlabels = np.zeros_like(HERAdata).real
+    return HERAdata,HERAlabels,info
 
 plt.ion()
 options={'y':-1,

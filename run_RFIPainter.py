@@ -28,10 +28,10 @@ o: enter zoom mode
 """
 
 pull_samples=False
-file_locs = '/Users/josh/Desktop/Organize/UPennML/ml_rfi/RealVisRFI_v3.h5'
+#file_locs = '/Users/josh/Desktop/Organize/UPennML/ml_rfi/RealVisRFI_v3.h5'
 file_locs = '/Users/josh/Desktop/RFIMLDiverseDataset/'
 suffix = 'uvSLIM'
-output_name = 'test.h5'#RealVisRFI_v4.h5'
+output_name = 'RawRealVis_v1.h5
 
 plt.ion()
 
@@ -39,7 +39,7 @@ mask = None
 # Load data either from miriad files or hdf5 files
 # Miriad file requires a suffix (e.g. uv or uvOCRS)
 
-data,info = rpt.loadPYUVdata(file_locs,suffix)
+data,mask,info = rpt.loadPYUVdata(file_locs,suffix)
 #data,mask = rpt.loadH5(file_locs)
 
 info = {}
