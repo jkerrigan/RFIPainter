@@ -15,8 +15,10 @@ pull_samples=False
 
 def loadH5(file_locs):
     f = h5py.File(file_locs)
-    return f['data'][:],np.logical_not(f['flag'])
-
+    try:
+        return f['data'][:],np.logical_not(f['flag'])
+    except:
+        return f['uv']['data'][:],np.logical_not(f['uv']['flag'])
 def loadPYUVdata(file_locs,suffix):
     files = np.array(glob(file_locs+'*'+suffix))
     info = {}
@@ -28,12 +30,13 @@ def loadPYUVdata(file_locs,suffix):
         uv = pyuvdata.UVData()
         uv.read_miriad(f,run_check_acceptability=False,run_check=False,check_extra=False)
         antpairs = uv.get_antpairs()
-        flag_npz_name = '.'.join(f.split('.')[:5])+'.uvOCR.flags.applied.npz'
+        flag_npz_name = '.'.join(f.split('.')[:5])+'.uvOC.flags.npz'
         try:
             flag_npz = np.load(flag_npz_name)
         except:
-            print('npz flag file -{}- not found'.format(flag_npz_name))
-        for i in range(50):
+            continue
+            print('Skipping because npz flag file -{}- not found'.format(flag_npz_name))
+        for i in range(10):
             rnd = np.random.randint(len(antpairs))
             ap1,ap2 = antpairs[rnd]
             bsl = uv.antnums_to_baseline(ap1,ap2)
