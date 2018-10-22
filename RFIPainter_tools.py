@@ -34,7 +34,7 @@ def loadPYUVdata(file_locs,suffix):
         try:
             flag_npz = np.load(flag_npz_name)
         except:
-            continue
+            #continue
             print('Skipping because npz flag file -{}- not found'.format(flag_npz_name))
         for i in range(10):
             rnd = np.random.randint(len(antpairs))
@@ -43,7 +43,8 @@ def loadPYUVdata(file_locs,suffix):
             try:
                 HERAlabels_ = np.logical_not(flag_npz['flag_array'][bsl == flag_npz['baseline_array']])
             except:
-                pass
+                HERAlabels_ = np.array([])#np.ones((60,1024))
+                #pass
             pos1 = uv.antenna_positions[uv.antenna_numbers==ap1]
             pos2 = uv.antenna_positions[uv.antenna_numbers==ap2]
             bl_len = np.round(np.sqrt(np.sum((pos1-pos2)**2)),2)
