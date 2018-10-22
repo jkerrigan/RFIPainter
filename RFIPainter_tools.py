@@ -43,7 +43,7 @@ def loadPYUVdata(file_locs,suffix):
             try:
                 HERAlabels_ = np.logical_not(flag_npz['flag_array'][bsl == flag_npz['baseline_array']])
             except:
-                HERAlabels_ = np.array([])#np.ones((60,1024))
+                HERAlabels_ = 0.
                 #pass
             pos1 = uv.antenna_positions[uv.antenna_numbers==ap1]
             pos2 = uv.antenna_positions[uv.antenna_numbers==ap2]
@@ -58,7 +58,7 @@ def loadPYUVdata(file_locs,suffix):
             ct+=1
         del(uv)
     print('Dataset size: ',np.shape(HERAdata))
-    if len(HERAlabels) == 0:
+    if np.dim(HERAlabels) > 3:
         HERAlabels = np.zeros_like(HERAdata).real
     return HERAdata,HERAlabels,info
 
