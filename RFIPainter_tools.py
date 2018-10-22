@@ -51,14 +51,20 @@ def loadPYUVdata(file_locs,suffix):
             info[f+'_{0}'.format(ct)] = '{0}_blen_{1}'.format(ct,bl_len)#str(ct)+'_blen_'+str() #['antpairs'][ct] = antpairs[rnd] #antpairs[rnd] : ct}
             if f == file_cut[0] and i == 0:
                 HERAdata = [uv.get_data(antpairs[rnd]).squeeze()]
-                HERAlabels = [HERAlabels_.squeeze()]
+                try:
+                    HERAlabels = [HERAlabels_.squeeze()]
+                except:
+                    HERAlabels = []
             else:
                 HERAdata.append(uv.get_data(antpairs[rnd]).squeeze())
-                HERAlabels.append(HERAlabels_.squeeze())
+                try:
+                    HERAlabels.append(HERAlabels_.squeeze())
+                except:
+                    HERAlabels = []
             ct+=1
         del(uv)
     print('Dataset size: ',np.shape(HERAdata))
-    if np.dim(HERAlabels) > 3:
+    if np.dim(HERAlabels) > 1:
         HERAlabels = np.zeros_like(HERAdata).real
     return HERAdata,HERAlabels,info
 
