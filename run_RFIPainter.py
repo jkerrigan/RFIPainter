@@ -28,9 +28,11 @@ o: enter zoom mode
 """
 
 pull_samples=False
-file_locs = './IDR21InitialFlags.h5' #'/Users/josh/Desktop/Organize/UPennML/ml_rfi/RealVisRFI_v3.h5'
+#file_locs = './IDR21InitialFlags.h5' #'/Users/josh/Desktop/Organize/UPennML/ml_rfi/RealVisRFI_v3.h5'
 #file_locs = '/Users/josh/Desktop/RFIMLDiverseDataset/'
+file_locs = '~/data/shared/HERA_RFI/'
 #suffix = 'zen.24581*.*.xx.HH.uvSLIM'
+suffix = 'uv'
 output_name = 'test.h5'
 
 plt.ion()
@@ -39,9 +41,9 @@ mask = None
 # Load data either from miriad files or hdf5 files
 # Miriad file requires a suffix (e.g. uv or uvOCRS)
 
-#data,mask,info = rpt.loadPYUVdata(file_locs,suffix)
-data,mask = rpt.loadH5(file_locs)
-mask = None
+data,mask,info = rpt.loadPYUVdata(file_locs,suffix)
+#data,mask = rpt.loadH5(file_locs)
+#mask = None
 info = {}
 print('Input data size: {} (# Samples, times, freqs)'.format(np.shape(data)))
 paint_session = rpt.Painter(data,info,mask=mask)
@@ -62,7 +64,6 @@ mask_ = np.copy(mask)
 mask = np.logical_not(mask)
 
 hf = h5py.File(output_name,'a') # caution! this will attempt to overwrite data
-suffix='uv'
 if pull_samples:
     for suffix in suffixes:
         try:
