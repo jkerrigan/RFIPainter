@@ -24,7 +24,7 @@ def loadPYUVdata(file_locs,suffix):
     info = {}
     ct = 0
     rnd_ = np.random.randint(len(files),size=5)
-    file_cut = files#[rnd_]
+    file_cut = files[rnd_]
     for f in file_cut:
         print(f)
         uv = pyuvdata.UVData()
