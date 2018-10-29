@@ -64,7 +64,7 @@ def loadPYUVdata(file_locs,suffix):
             ct+=1
         del(uv)
     print('Dataset size: ',np.shape(HERAdata))
-    if np.dim(HERAlabels) > 1:
+    if np.ndim(HERAlabels) > 1:
         HERAlabels = np.zeros_like(HERAdata).real
     return HERAdata,HERAlabels,info
 

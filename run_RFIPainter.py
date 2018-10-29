@@ -37,13 +37,12 @@ output_name = '{USERNAME}_{DATE}.h5'
 
 plt.ion()
 
-mask = None
 # Load data either from miriad files or hdf5 files
 # Miriad file requires a suffix (e.g. uv or uvOCRS)
 
 data,mask,info = rpt.loadPYUVdata(file_locs,suffix)
 #data,mask = rpt.loadH5(file_locs)
-#mask = None
+mask = None
 info = {}
 print('Input data size: {} (# Samples, times, freqs)'.format(np.shape(data)))
 paint_session = rpt.Painter(data,info,mask=mask)
