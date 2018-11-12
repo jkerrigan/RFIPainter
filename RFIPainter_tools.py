@@ -159,7 +159,9 @@ class Painter:
             self.ax2.set_xlabel('Delay Bin')
             self.ax2.set_ylabel('Time')
         else:
-            self.amp_plot = self.ax.imshow(np.log10(np.abs(self.curr_data))*np.abs(self.curr_mask),aspect='auto')
+            curr_mask =copy(self.curr_mask)
+            curr_mask =np.where(curr_mask == 0, np.nan, curr_mask)
+            self.amp_plot = self.ax.imshow(np.log10(np.abs(self.curr_data))*np.abs(curr_mask),aspect='auto')
             self.ax.set_title('Visibility')
             self.ax.set_xlabel('Freq.')
             self.ax.set_ylabel('Time')
@@ -167,7 +169,7 @@ class Painter:
             self.ax2.set_title('Delay Spectrum')
             self.ax2.set_xlabel('Delay Bin')
             self.ax2.set_ylabel('Time')
-            self.phs_plot = self.ax3.imshow(np.angle(self.curr_data*self.curr_mask),aspect='auto')
+            self.phs_plot = self.ax3.imshow(np.angle(self.curr_data*curr_mask),aspect='auto')
             self.ax3.set_title('Phase')
             self.ax3.set_xlabel('Freq')
             self.ax3.set_ylabel('Time')
@@ -203,11 +205,13 @@ class Painter:
                     self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                     self.canvas2.draw()
                 else:
-                    self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(self.curr_mask))
+                    curr_mask = copy(self.curr_mask)
+                    curr_mask = np.where(curr_mask == 0, np.nan, curr_mask)  
+                    self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(curr_mask))
                     self.canvas.draw()
                     self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                     self.canvas2.draw()
-                    self.phs_plot.set_data(np.angle(self.curr_data*self.curr_mask))
+                    self.phs_plot.set_data(np.angle(self.curr_data*curr_mask))
                     self.canvas3.draw()
     
     def next(self, event):
@@ -224,11 +228,13 @@ class Painter:
                 self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                 self.canvas2.draw()
             else:
-                self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(self.curr_mask))
+                curr_mask =copy(self.curr_mask)
+                curr_mask =np.where(curr_mask == 0, np.nan, curr_mask)
+                self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(curr_mask))
                 self.canvas.draw()
                 self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                 self.canvas2.draw()
-                self.phs_plot.set_data(np.angle(self.curr_data*self.curr_mask))
+                self.phs_plot.set_data(np.angle(self.curr_data*curr_mask))
                 self.canvas3.draw()
 
     def on_key_release(self, event):
@@ -250,11 +256,13 @@ class Painter:
                 self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                 self.canvas2.draw()
             else:
-                self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(self.curr_mask))
+                curr_mask =copy(self.curr_mask)
+                curr_mask =np.where(curr_mask == 0, np.nan, curr_mask)
+                self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(curr_mask))
                 self.canvas.draw()
                 self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                 self.canvas2.draw()
-                self.phs_plot.set_data(np.angle(self.curr_data*self.curr_mask))
+                self.phs_plot.set_data(np.angle(self.curr_data*curr_mask))
                 self.canvas3.draw()
 
     def on_press(self, event):
@@ -295,12 +303,14 @@ class Painter:
                 self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                 self.canvas2.draw()
             else:
-                self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(self.curr_mask))
+                curr_mask =copy(self.curr_mask)
+                curr_mask =np.where(curr_mask == 0, np.nan, curr_mask)
+                self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(curr_mask))
                 self.canvas.draw()
                 self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                 self.canvas2.draw()
         
-                self.phs_plot.set_data(np.angle(self.curr_data*self.curr_mask))
+                self.phs_plot.set_data(np.angle(self.curr_data*curr_mask))
                 self.canvas3.draw()
 
     
