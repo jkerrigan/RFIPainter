@@ -31,7 +31,7 @@ pull_samples=False
 #file_locs = './IDR21InitialFlags.h5' #'/Users/josh/Desktop/Organize/UPennML/ml_rfi/RealVisRFI_v3.h5'
 #file_locs = '/Users/josh/Desktop/RFIMLDiverseDataset/'
 file_locs = '/users/{USERNAME}/data/shared/HERA_RFI/'
-#suffix = 'zen.24581*.*.xx.HH.uvSLIM'
+#suffix = 'zen.2458101.*.xx.HH.uvSLIM'
 suffix = 'uv'
 output_name = '{USERNAME}_{DATE}.h5'
 

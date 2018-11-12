@@ -159,7 +159,7 @@ class Painter:
             self.ax2.set_xlabel('Delay Bin')
             self.ax2.set_ylabel('Time')
         else:
-            curr_mask =copy(self.curr_mask)
+            curr_mask = np.copy(self.curr_mask)
             curr_mask =np.where(curr_mask == 0, np.nan, curr_mask)
             self.amp_plot = self.ax.imshow(np.log10(np.abs(self.curr_data))*np.abs(curr_mask),aspect='auto')
             self.ax.set_title('Visibility')
@@ -205,7 +205,7 @@ class Painter:
                     self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                     self.canvas2.draw()
                 else:
-                    curr_mask = copy(self.curr_mask)
+                    curr_mask = np.copy(self.curr_mask)
                     curr_mask = np.where(curr_mask == 0, np.nan, curr_mask)  
                     self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(curr_mask))
                     self.canvas.draw()
@@ -228,7 +228,7 @@ class Painter:
                 self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                 self.canvas2.draw()
             else:
-                curr_mask =copy(self.curr_mask)
+                curr_mask = np.copy(self.curr_mask)
                 curr_mask =np.where(curr_mask == 0, np.nan, curr_mask)
                 self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(curr_mask))
                 self.canvas.draw()
@@ -256,7 +256,7 @@ class Painter:
                 self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                 self.canvas2.draw()
             else:
-                curr_mask =copy(self.curr_mask)
+                curr_mask = np.copy(self.curr_mask)
                 curr_mask =np.where(curr_mask == 0, np.nan, curr_mask)
                 self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(curr_mask))
                 self.canvas.draw()
@@ -303,7 +303,7 @@ class Painter:
                 self.delay_plot.set_data(np.log10(np.abs(self.delayTrans())))
                 self.canvas2.draw()
             else:
-                curr_mask =copy(self.curr_mask)
+                curr_mask = np.copy(self.curr_mask)
                 curr_mask =np.where(curr_mask == 0, np.nan, curr_mask)
                 self.amp_plot.set_data(np.log10(np.abs(self.curr_data))*np.abs(curr_mask))
                 self.canvas.draw()
